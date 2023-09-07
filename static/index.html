@@ -1,0 +1,42 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/htmx.org@1.6.1"></script>
+    <title>CoAP Devices</title>
+</head>
+<body>
+    <div hx-get="/get-devices" hx-trigger="load delay:1s" hx-swap="outerHTML">
+      <!-- This div will get replaced with data from the server -->
+      Loading devices...
+    </div>
+
+    <script>
+    function updateDeviceList(data) {
+        if (!data || !Array.isArray(data) || data.length === 0 || data == null) {
+            return "No devices available.";
+        }
+
+        let output = '<ul>';
+        for (let device of data) {
+            output += `<li>IMEI: ${device.imei}, Latitude: ${device.latitude}, Longitude: ${device.longitude}, Timestamp: ${device.timestamp}</li>`;
+        }
+        output += '</ul>';
+
+        return output;
+    }
+    
+    document.body.addEventListener("htmx:afterSwap", function(event) {
+        let target = event.target;
+        if (target && target.hasAttribute("hx-get")) {
+            let data = JSON.parse(target.innerText);
+            target.innerHTML = updateDeviceList(data);
+        }
+    });
+    </script>
+  </body>
+</html>
+
