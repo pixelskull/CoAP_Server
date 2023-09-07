@@ -9,16 +9,20 @@
     <title>CoAP Devices</title>
 </head>
 <body>
-    <div hx-get="/get-devices" hx-trigger="load delay:1s" hx-swap="outerHTML">
+    <div hx-get="/get-devices" hx-trigger="load delay:1s" hx-swap="innerHTML">
       <!-- This div will get replaced with data from the server -->
       Loading devices...
     </div>
-
     <script>
-    function updateDeviceList(data) {
-        if (!data || !Array.isArray(data) || data.length === 0 || data == null) {
+      function updateDeviceList(data) {
+        console.log(data)
+        if (!data || !Array.isArray(data) || data.length === 0 || data === []) {
             return "No devices available.";
         }
+
+        data.sort((a, b) => {
+          return new Date(b.timestamp) - new Date(a.timestamp)
+        });
 
         let output = '<ul>';
         for (let device of data) {
@@ -27,15 +31,20 @@
         output += '</ul>';
 
         return output;
-    }
-    
-    document.body.addEventListener("htmx:afterSwap", function(event) {
+      }
+   
+      document.body.addEventListener("htmx:afterSettle", function(event) {
+        console.log("triggered");
         let target = event.target;
         if (target && target.hasAttribute("hx-get")) {
-            let data = JSON.parse(target.innerText);
-            target.innerHTML = updateDeviceList(data);
+          try {
+                let data = JSON.parse(target.innerText);
+                target.innerHTML = updateDeviceList(data);
+            } catch (e) {
+                console.error("Error parsing JSON:", e);
+            }
         }
-    });
+      });
     </script>
   </body>
 </html>

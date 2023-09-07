@@ -140,7 +140,9 @@ func startHTTPServer() {
   http.ListenAndServe(":8080", nil)
 }
 
-func main() { 
+func main() {
+  deviceLocations = []DeviceLocation{}
+
   go startCoAPServer()
   startHTTPServer()
 }
