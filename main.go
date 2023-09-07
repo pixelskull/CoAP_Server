@@ -65,7 +65,6 @@ func handleCoAPLocation(w mux.ResponseWriter, r *mux.Message) {
   msg := "success"
   if err != nil {
     log.Println("failed to unmarshal json payload: ", err)
-    // w.SetResponse(codes.BadRequest, message.TextPlain, []byte("Invalid JSON payload"))
     msg = "failed to get payload"
   }
 
