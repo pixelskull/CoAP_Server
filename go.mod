@@ -10,9 +10,7 @@ require (
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/pion/dtls/v2 v2.2.8-0.20230905141523-2b584af66577 // indirect
 	github.com/pion/logging v0.2.2 // indirect
-	github.com/pion/transport v0.13.1 // indirect
 	github.com/pion/transport/v3 v3.0.1 // indirect
-	github.com/pion/udp v0.1.2-0.20221011090648-2589407f52c9 // indirect
 	go.uber.org/atomic v1.11.0 // indirect
 	golang.org/x/crypto v0.13.0 // indirect
 	golang.org/x/exp v0.0.0-20230905200255-921286631fa9 // indirect

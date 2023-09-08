@@ -59,14 +59,14 @@ func handleCoAPLocation(w mux.ResponseWriter, r *mux.Message) {
     log.Println("Failed to read Message Body")
   }
 
+  msg := "success"
   var dl DeviceLocation
   err := json.Unmarshal(payload, &dl)
-
-  msg := "success"
   if err != nil {
     log.Println("failed to unmarshal json payload: ", err)
     msg = "failed to get payload"
   }
+  deviceLocations = append(deviceLocations, dl)
 
   customResp.SetCode(codes.Content)
   customResp.SetToken(r.Token())
@@ -84,7 +84,7 @@ func startCoAPServer() {
   r := mux.NewRouter()
   r.Use(loggingMiddleware)
 
-  r.Handle("/location", mux.HandlerFunc(handleCoAPLocation))
+  r.Handle("/locations", mux.HandlerFunc(handleCoAPLocation))
 
   log.Println("Starting CoAP Server...")
   log.Fatal(coap.ListenAndServe("udp", listenAddr, r))
@@ -94,7 +94,7 @@ func startCoAPServer() {
 // http server methods start here  
 //
 
-func getDevicesHandler(w http.ResponseWriter, r *http.Request) {
+func getDevicesHandler(w http.ResponseWriter, _ *http.Request) {
   mutex.Lock()
   defer mutex.Unlock()
 
