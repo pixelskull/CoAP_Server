@@ -9,7 +9,7 @@
     <title>CoAP Devices</title>
 </head>
 <body>
-    <div hx-get="/get-devices" hx-trigger="load delay:1s" hx-swap="innerHTML">
+    <div hx-get="/get-devices" hx-trigger="every 1s" hx-swap="innerHTML">
       <!-- This div will get replaced with data from the server -->
       Loading devices...
     </div>
@@ -38,11 +38,11 @@
         let target = event.target;
         if (target && target.hasAttribute("hx-get")) {
           try {
-                let data = JSON.parse(target.innerText);
-                target.innerHTML = updateDeviceList(data);
-            } catch (e) {
-                console.error("Error parsing JSON:", e);
-            }
+            let data = JSON.parse(target.innerText);
+            target.innerHTML = updateDeviceList(data);
+          } catch (e) {
+             console.error("Error parsing JSON:", e);
+          }
         }
       });
     </script>
