@@ -10,8 +10,8 @@ import(
 
   coap "github.com/plgd-dev/go-coap/v3"
   "github.com/plgd-dev/go-coap/v3/message"
-	"github.com/plgd-dev/go-coap/v3/message/codes"
-	"github.com/plgd-dev/go-coap/v3/mux"
+  "github.com/plgd-dev/go-coap/v3/message/codes"
+  "github.com/plgd-dev/go-coap/v3/mux"
 )
 
 // 
