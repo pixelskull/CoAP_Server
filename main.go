@@ -96,9 +96,6 @@ func startCoAPServer() {
 //
 
 func getDevicesHandler(w http.ResponseWriter, _ *http.Request) {
-	mutex.Lock()
-	defer mutex.Unlock()
-
 	resp, err := json.Marshal(deviceLocations)
 	if err != nil {
 		http.Error(w, "Failed to fetch devices", http.StatusInternalServerError)
